@@ -19,6 +19,7 @@
   "homepage": "https://github.com/gonzoibox/Server-with-Node.js#readme",
   "dependencies": {
     "cookie-parser": "^1.4.4",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "pug": "^2.0.3"
   }
 }
