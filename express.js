@@ -1,10 +1,12 @@
 const express = require('express');
-const server = express();
+const cookieParser = require('cookie-parser');
 
-//res.sendFile('./index.html', { root: __dirname});
+const server = express();
 server.use(express.urlencoded({ extended: true }));
+server.use(cookieParser());
 
 server.get('/', (req, res) => {
+    const username = req.cookies.username;
     res.send(`
     <!DOCTYPE html>
         <html>
@@ -13,31 +15,27 @@ server.get('/', (req, res) => {
             <meta name="viewport" content="width=device-width, initial-scale=1">
         </head>
         <body>
+            ${username ?
+            `
+            <p>Hello ${username}!</p>
+            `
+            :
+            `
             <h1>Enter</h1>
             <form method="POST">
                 <input type="text" name="username">
                 <button type="submit">Enter</button>
             </form>
+`
+        }
         </body>
     </html>
-    `);
+`);
 })
 
 server.post('/', (req, res) => {
-    // console.log(req.body.username);
-    // res.send(`Hello ${req.body.username}!`);
-    res.send(`
-        <!DOCTYPE html>
-            <html>
-            <head>
-                <title>Page Title</title>
-            </head>
-            <body>
-                <h1>Enter</h1>
-                <p>Hello, ${req.body.username}</p>
-            </body>
-        </html>
-        `);
+    res.cookie('username', req.body.username);
+    res.redirect('/');
 });
 
 server.listen(3000, 'localhost', () => console.log("Server is up///"));
