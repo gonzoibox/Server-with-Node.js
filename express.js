@@ -1,7 +1,10 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 
-const suggestions = ['Express template'];
+const suggestions = [{
+    id : '1',
+    title : 'Suggestion #1'
+}];
 
 const server = express();
 
@@ -35,12 +38,13 @@ server.post('/', (req, res) => {
         throw new Error('Not implemented');
     });
 
-    server.get('/suggestions/1', (req, res) => {
+    server.get('/suggestions/:id', (req, res) => {
         //Show suggestion
-        throw new Error('Not implemented');
+       const suggestion = suggestions.find(suggestion => suggestion.id === req.params.id);
+       res.render('suggestion', { suggestion });
     });
 
-    server.post('/suggestions/1', (res, req) => {
+    server.post('/suggestions/1', (req, res) => {
         //Create suggestion
         throw new Error('Not implemented');
     });

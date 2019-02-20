@@ -1,11 +1,14 @@
 doctype html
 html
     head
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        meta(http-equiv='X-UA-Compatible' content='ie=edge')
         title Page title
         link(rel='stylesheet', href='/styles.css')
     body
         if username
             h1 Hello, #{username}!
+            a(href='/suggestions') Suggestions list
         else
             h1 Enter
             form(method='POST')
