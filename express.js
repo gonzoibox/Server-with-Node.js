@@ -1,6 +1,8 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 
+const suggestions = ['Express template'];
+
 const server = express();
 
 server.set('view engine', 'pug');
@@ -11,7 +13,7 @@ server.use(express.static('public'));
 
 server.get('/', (req, res) => {
     const username = req.cookies.username;
-    console.log(req.body.username);
+    console.log(username);
     res.render('index', {
         username
     });
@@ -22,18 +24,18 @@ server.post('/', (req, res) => {
     res.redirect('/');
 });
 
-    server.get('/suggestions', (res, req) => {
+    server.get('/suggestions', (req, res) => {
         //Show sugestion list
-        throw new Error('Not implemented');
+        res.render('suggestions', {suggestions});
     });
 
-    server.post('/suggestions', (res, req) => {
+    server.post('/suggestions', (req, res) => {
         //Create suggestion
         //Redirect list
         throw new Error('Not implemented');
     });
 
-    server.get('/suggestions/1', (res, req) => {
+    server.get('/suggestions/1', (req, res) => {
         //Show suggestion
         throw new Error('Not implemented');
     });
