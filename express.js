@@ -1,8 +1,10 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 
+let nextId = 1;
+
 const suggestions = [{
-    id : '1',
+    id : 1,
     title : 'Suggestion #1'
 }];
 
@@ -16,7 +18,6 @@ server.use(express.static('public'));
 
 server.get('/', (req, res) => {
     const username = req.cookies.username;
-    console.log(username);
     res.render('index', {
         username
     });
@@ -34,13 +35,17 @@ server.post('/', (req, res) => {
 
     server.post('/suggestions', (req, res) => {
         //Create suggestion
-        //Redirect list
-        throw new Error('Not implemented');
+        const title = req.body.title;
+        suggestions.push({
+            id: ++nextId,
+            title
+        });
+        res.redirect('/suggestions');
     });
 
     server.get('/suggestions/:id', (req, res) => {
         //Show suggestion
-       const suggestion = suggestions.find(suggestion => suggestion.id === req.params.id);
+       const suggestion = suggestions.find(suggestion => suggestion.id == req.params.id);
        res.render('suggestion', { suggestion });
     });
 
