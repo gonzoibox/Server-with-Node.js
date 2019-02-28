@@ -8,7 +8,10 @@ html
     body
          a(href='/suggestions') Back
         
-            h1= suggestion.title
+         h1= suggestion.title
 
-            form(method="POST")
-            button(type="submit") Vote
+         form(method="POST")
+            if suggestion.voters.has(username)
+                button(type="submit") Upvote
+            else
+                button(type="submit") Vote
